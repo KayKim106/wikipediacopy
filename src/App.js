@@ -2,20 +2,19 @@ import React,{Component} from 'react';
 
 import './App.css';
 
+// Importing Component
 
-
-
-// Importing Components
 import Search from './components/search/Search'
+
 class App extends Component{
   render(){
-
+    
     return (
       <div>
-       
-      <Search />
+        <Search />
       </div>
     )
+    
   }
 }
 
