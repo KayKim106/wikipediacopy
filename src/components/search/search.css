@@ -1,0 +1,18 @@
+.result-li:hover{
+    background:black;
+    color:white;
+    cursor: pointer;
+}
+
+.result-li{
+    border-radius:0;
+    border:1px solid lightgray !important;
+    border-top:1px solid white !important;
+    border-bottom:1px solid white !important;
+}
+.result-li:last-child{
+    border-bottom:1px solid lightgray !important;
+    border-radius:0 0 5px 5px;
+
+       
+}
