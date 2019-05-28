@@ -3,7 +3,7 @@
 	#Description
 		- Searching any type of word from site. It will show you the list of data from wikipedia.
 		- This site is available for seaching similar word that you typed in(suggestion)
-		- Suggestion list will be change in real time when user enter the keyboard.
+		- Suggestion list will be changed in real time when user enter the keyboard.
 		- Displaying word's contents and description.
 		
 		This application runs on server side and front end side (port 4000(server), port 3000)
