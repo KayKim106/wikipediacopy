@@ -1,0 +1,35 @@
+.navbarWrapper{
+    height:100px;
+    padding:20px;
+    background:#f5f7fa;
+}
+.menu{
+    float:right;
+    text-align:center;
+    height:50px;
+    line-height: 50px;
+    border-radius:10px;
+    transition:0.5s;
+    color:rgb(66, 65, 65);
+    margin-right:6%;
+
+
+}
+.menu:last-child{
+    margin-right:1% ;
+}
+
+.menu li{
+    display:inline-block;
+    margin:0 50px 0 50px;
+    border: 2px solid rgb(66, 65, 65);
+    width:100px;
+    border-radius:10px;   
+    color:black;
+}
+.menu li:hover{
+    background:#ced4da;
+    color:white;
+    font-weight:bold;
+    transition:0.5s;
+}

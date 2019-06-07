@@ -1,0 +1,18 @@
+.bodyContent{
+    width:70%;
+    margin:0 auto;
+    padding-top:50px;
+}
+.bodyHeader{
+    padding:30px 0 50px 30px; 
+    margin:auto;
+
+}
+
+.contents{
+    margin:0 auto;
+    border:1px solid black;
+    border-radius:20px;
+    padding:20px;
+    box-shadow: 6px 10px #888888;
+}

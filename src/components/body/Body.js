@@ -1,26 +1,49 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
+
+import Navbar from '../nav/Navbar'
+import Search from '../search/Search'
+
+import './body.css'
+
+import Snippet from '../search/Snippet'
+
 class Body extends Component {
 
-    constructor(props) {
+    constructor(props){
         super(props)
-        this.state= {
+
+        this.state = {
+            searchResult:[],
+
         }
+    }
+    componentWillMount(){
+        this.setState({
+            searchResult:this.props.location.state.searchResult,
+
+
+        })
     }
 
     render(){
-
+        
+        const { searchResult } = this.state;
+     
         return(
-            <div className="bodyWrapper">
-                <div className="row" style={{ padding:"30px 0 50px 30px" }}>
-                    <div className="col-md-10">
-                    <h3>Wikipedia Search result : {this.props.searchString}</h3>
-                    </div>    
+            <div>
+                <Navbar />
+                <div className="bodyContent">
+                {
+                    searchResult &&
+                     searchResult.map(( result, i)=>(
+                        <Snippet key={ i } searchTitle = { result.title } searchBody = { result.snippet } searchList = {searchResult} />
+                    ))
+                }
                 </div>
-                <div className="row">
-                    <div className="col-md-10" style={{ margin:"0 auto" }} dangerouslySetInnerHTML={{ __html: this.props.mainContent }}>
-                    </div>
-                </div>
+                
             </div>
+            
         )
     }
 }

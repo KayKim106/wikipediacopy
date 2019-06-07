@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import fecth from 'isomorphic-unfetch'
+import { Link } from "react-router-dom"
 
+
+import logo from '../../assets/images/logo.png'
 import Body from '../body/Body'
-
+import Navbar from '../nav/Navbar'
 import './search.css'
+
+import { relative } from 'path';
 
 class Search extends Component {
     
@@ -28,7 +33,8 @@ class Search extends Component {
     
         if (prevState.searchValue !== this.myRef.current.value){
             
-            this.getWikipediaListAPICall(this.myRef.current.value)
+            let searchString = this.stringConvert(this.myRef.current.value)
+            this.getWikipediaListAPICall(searchString)
 
         } 
 
@@ -54,7 +60,6 @@ class Search extends Component {
             .then(response => response.json())
             .then(response => this.setState({ fullContent: response }))
 
-    
     }
 
     // Get Suggestion List by user typing
@@ -95,6 +100,8 @@ class Search extends Component {
             searchResult: [],
              isShowSuggestion: false 
             })
+            
+
     }
 
     // Search Content with Clicked List String
@@ -111,50 +118,52 @@ class Search extends Component {
             searchResult: [],
             isShowSuggestion: false,
         })
-
     }
 
     showSuggestion = () => {
 
         this.setState({ isShowSuggestion: true })
+    }
+    componentWillUnmount(){
 
     }
-    render() {
 
+    
+    render() {
+      
         let {searchValue,searchResult,fullContent,isShowSuggestion} = this.state
     
         return(
-            <div className="earchSectionWrapper">
+            <div className="searchSectionWrapper">
                 <div className="searchContainer col-md-12">
-                    <div className="row">
-                        <div className="pageLogo col-md-12">
-                            <img src="" alt="logo"/>
+                    <div className="row logoWrapper">
+                        <div className="pageLogo">
+                            <img src={logo} alt="logo"/>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="searchBar col-md-7" style={{position:"relative", margin:"0 auto"}}>
-                          <div className="listWrapper input-group row" style = {{ justifyContent: "center", }} >
-                                <input autoComplete="off" type="text" className="col-md-12 form-control"  onKeyPress={this.showSuggestion}  placeholder="Enter here..." id="searchValue" value={searchValue} onChange={this.onSearchInput} ref={this.myRef} />
-                                <button className="btn btn-primary btn-sm" type="submit" onClick={this.onSearchBtnClicked}><i className="fa fa-search"></i> Search</button>   
-                          </div>
-
-                          <ul id="result-list" className="row" style={{ zIndex:999,paddingLeft:"0", position:"absolute",top:40, left:0, left: "15px", width: "49vw" }}>
-                                {isShowSuggestion &&
-
-                                    searchResult.map((result,i)=>(
-                                        <li key={i} className="col-md-12 form-control result-li" data-title={result.title} onClick={this.onSearchListClicked} style={{ listStyle: 'none', border:"1px solid black", margin:"0 auto" }}>{result.title}</li>
-                                    ))
-                                }
-                          </ul>
+                        <div className="searchBar col-md-7" style={{ position:"relative", margin:"0 auto" }}>
+                          <div className="listWrapper input-group row" >
+                                <ul id="result-list">
+                                        {isShowSuggestion &&
+                                            searchResult.map(( result, i) => (
+                                                <li key={ i } className="col-md-12 form-control result-li" data-title={result.title} onClick={this.onSearchListClicked} style={{ listStyle: 'none', border:"1px solid black", margin:"0 auto" }}>{result.title}</li>
+                                            ))
+                                        }
+                                </ul>
+                                <input autoComplete="off" type="text" className="col-md-12 form-control"  onKeyPress={this.showSuggestion}  placeholder="Enter here..." id="searchValue" value={searchValue} onChange={ this.onSearchInput } ref={this.myRef} />
+                                <Link to={{ pathname:"/search-list",
+                                            state:{
+                                                searchResult:this.state.searchResult,
+                                                searchList:this.state.searchList,
+                                                }
+                                        }}>
+                                    <button className="btn btn-primary btn-md" type="submit" onClick={this.onSearchBtnClicked}><i className="fa fa-search"></i> Search</button>   
+                                </Link>
+                            </div>
                         </div>
                     </div>            
                 </div>
-
-                {fullContent &&
-
-                <Body searchString={this.state.searchValue} mainContent={fullContent.parse.text["*"]} additionalReference={fullContent.parse.externallinks} />
-                
-                }
             </div>
         )
     }
